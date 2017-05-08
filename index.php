@@ -18,13 +18,17 @@ include 'password.php';
             }
             function call(func)
             {
+                var path = $("#path").val();
+
                 $("#output").append("\nplease wait...\n");
                 $("#output").append("\n===================================================================\n");
-                $("#output").append("Executing Started");
+                $("#output").append("Path: " + path + "> composer " + func);
+                $("#output").append("\nExecuting Started");
                 $("#output").append("\n===================================================================\n");
+               
                 $.post('main.php',
                         {
-                            "path":$("#path").val(),
+                            "path": path,
                             "command":func,
                             "function": "command"
                         },

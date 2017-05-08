@@ -1,7 +1,4 @@
 <?php
-
-    
-    
 include 'password.php';
 if (!isset($_POST['function']))
     die("You must specify a function");
@@ -17,7 +14,7 @@ function getStatus()
         'composer_extracted' => file_exists('extracted'),
         'installer' => file_exists('installer.php'),
     );
-
+    header("Content-Type: text/json; charset=utf-8");
     echo json_encode($output);
 }
 
@@ -68,7 +65,6 @@ function command()
 {
     command:
     set_time_limit(-1);
-    ini_set('memory_limit','2G');
     putenv('COMPOSER_HOME=' . __DIR__ . '/extracted/bin/composer');
     if(!file_exists($_POST['path']))
     {
@@ -79,7 +75,7 @@ function command()
     {
         require_once(__DIR__ . '/extracted/vendor/autoload.php');
         $input = new Symfony\Component\Console\Input\StringInput($_POST['command'].' -vvv -d '.$_POST['path']);
-	    $output = new Symfony\Component\Console\Output\StreamOutput(fopen('php://output','w'));
+	$output = new Symfony\Component\Console\Output\StreamOutput(fopen('php://output','w'));
         $app = new Composer\Console\Application();
         $app->run($input,$output);
     }
