@@ -1,5 +1,4 @@
 <?php
-include 'password.php';
 if (!isset($_POST['function']))
     die("You must specify a function");
 if (!function_exists($_POST['function']))
@@ -66,15 +65,30 @@ function command()
     command:
     set_time_limit(-1);
     putenv('COMPOSER_HOME=' . __DIR__ . '/extracted/bin/composer');
-    if(!file_exists($_POST['path']))
+
+    $command = $_POST['command'];
+    $app = $_POST['app'];
+    $root_folder = "C:/KPA_www" . $app;
+
+    if (strpos($command, "laravel-install") !== false) {
+        $root_folder = "C:/KPA_www" . $app;
+        $command = "create-project --prefer-dist laravel/laravel wwwroot";
+    }
+    else {
+        $root_folder = "C:/KPA_www" . $app . "/wwwroot";
+    }
+
+    if(!file_exists($root_folder))
     {
         echo 'Invalid Path';
         die();
     }
+
+    $exec_command = $command .' -vvv -d '. $root_folder;
     if (file_exists('extracted'))
     {
         require_once(__DIR__ . '/extracted/vendor/autoload.php');
-        $input = new Symfony\Component\Console\Input\StringInput($_POST['command'].' -vvv -d '.$_POST['path']);
+        $input = new Symfony\Component\Console\Input\StringInput($exec_command);
 	    $output = new Symfony\Component\Console\Output\StreamOutput(fopen('php://output','w'));
         $app = new Composer\Console\Application();
         $app->run($input,$output);
