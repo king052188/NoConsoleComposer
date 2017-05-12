@@ -115,6 +115,7 @@ include 'password.php';
                 </div>
                 <div class="form-inline buttons">
                     <button id="install" onclick="call('install')" class="btn btn-success disabled">install</button>
+                    <button id="install" onclick="call('create-project --prefer-dist laravel/laravel')" class="btn btn-success disabled">laravel-install</button>
                     <button id="update" onclick="call('update')" class="btn btn-success disabled">update</button>
                     <button id="update" onclick="call('dump-autoload')" class="btn btn-success disabled">dump-autoload</button>
                 </div>
