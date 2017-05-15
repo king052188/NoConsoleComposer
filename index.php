@@ -16,7 +16,7 @@ if (isset($_GET['app']))
             #output
             {
                 width:100%;
-                height:350px;
+                height:300px;
                 overflow-y:scroll;
                 overflow-x:hidden;
                 font-family: Consolas, monaco, monospace;
